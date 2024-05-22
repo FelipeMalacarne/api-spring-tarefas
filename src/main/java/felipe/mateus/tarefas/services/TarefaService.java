@@ -3,6 +3,7 @@ package felipe.mateus.tarefas.services;
 import felipe.mateus.tarefas.entities.Tarefa;
 import felipe.mateus.tarefas.repositories.TarefaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
@@ -41,31 +42,37 @@ public class TarefaService {
         return tarefaRepository.findAll();
     }
 
-    public void concluir(Long id) {
+    public Tarefa concluir(Long id) {
         Tarefa tarefa = tarefaRepository.findById(id).orElse(null);
-        if (tarefa != null) {
-            tarefa.setConcluida(true);
-            tarefaRepository.save(tarefa);
+        if (tarefa == null) {
+            throw new ResourceNotFoundException("Tarefa não encontrada");
         }
+
+        tarefa.setConcluida(true);
+        return tarefaRepository.save(tarefa);
     }
 
-    public void arquivar(Long id) {
+    public Tarefa arquivar(Long id) {
         Tarefa tarefa = tarefaRepository.findById(id).orElse(null);
-        if (tarefa != null) {
-            tarefa.setArquivada(true);
-            tarefaRepository.save(tarefa);
+        if (tarefa == null) {
+            throw new ResourceNotFoundException("Tarefa não encontrada");
         }
+
+        tarefa.setArquivada(true);
+        return tarefaRepository.save(tarefa);
     }
 
-    public void desarquivar(Long id) {
+    public Tarefa desarquivar(Long id) {
         Tarefa tarefa = tarefaRepository.findById(id).orElse(null);
-        if (tarefa != null) {
-            tarefa.setArquivada(false);
-            tarefaRepository.save(tarefa);
+        if (tarefa == null) {
+            throw new ResourceNotFoundException("Tarefa não encontrada");
         }
+
+        tarefa.setArquivada(false);
+        return tarefaRepository.save(tarefa);
     }
 
-    public void atualizar(Tarefa tarefa) {
-        tarefaRepository.save(tarefa);
+    public Tarefa atualizar(Tarefa tarefa) {
+        return tarefaRepository.save(tarefa);
     }
 }
