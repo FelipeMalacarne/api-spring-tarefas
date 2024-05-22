@@ -7,6 +7,7 @@ import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
+import java.util.Optional;
 
 @Service
 public class TarefaService {
@@ -72,7 +73,14 @@ public class TarefaService {
         return tarefaRepository.save(tarefa);
     }
 
-    public Tarefa atualizar(Tarefa tarefa) {
+    public Tarefa atualizar(Long id, String titulo, String descricao ) {
+        Tarefa tarefa = tarefaRepository.findById(id).orElse(null);
+        if (tarefa == null) {
+            throw new ResourceNotFoundException("Tarefa não encontrada");
+        }
+
+        tarefa.setTitulo(titulo);
+        tarefa.setDescricao(descricao);
         return tarefaRepository.save(tarefa);
     }
 }
