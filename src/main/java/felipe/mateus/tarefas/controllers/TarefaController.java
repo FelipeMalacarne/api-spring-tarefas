@@ -57,4 +57,13 @@ public class TarefaController {
         return ResponseEntity.noContent().build();
     }
 
+    @GetMapping("/tarefas/{id}")
+    public ResponseEntity<Tarefa> buscarPorId(@PathVariable Long id) {
+        var tarefa = tarefaService.buscarPorId(id);
+        if (tarefa == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(tarefa);
+    }
+
 }
