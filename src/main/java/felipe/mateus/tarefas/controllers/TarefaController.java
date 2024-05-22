@@ -41,4 +41,20 @@ public class TarefaController {
         }
     }
 
+    @PostMapping("/tarefas/{id}/arquivar")
+    public ResponseEntity<Tarefa> arquivar(@PathVariable Long id) {
+        try {
+            var tarefa =  tarefaService.arquivar(id);
+            return ResponseEntity.ok(tarefa);
+        } catch (Exception e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @DeleteMapping("/tarefas/{id}")
+    public ResponseEntity<Void> excluir(@PathVariable Long id) {
+        tarefaService.excluir(id);
+        return ResponseEntity.noContent().build();
+    }
+
 }
