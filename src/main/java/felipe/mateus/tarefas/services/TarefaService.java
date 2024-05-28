@@ -2,12 +2,10 @@ package felipe.mateus.tarefas.services;
 
 import felipe.mateus.tarefas.entities.Tarefa;
 import felipe.mateus.tarefas.repositories.TarefaRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
-import java.util.Optional;
 
 @Service
 public class TarefaService {
